@@ -1,6 +1,6 @@
 package MooseX::Unique;
 
-#ABSTRACT: Make your Moose instances unique
+#ABSTRACT: Make your Moose instances as unique as you are
 use Moose 1.9900; no Moose;  # Lazy hack for auto prereqs.
 use Moose::Exporter;
 use MooseX::InstanceTracking 0.06;
@@ -65,8 +65,8 @@ __END__
     use Modern::Perl;
 
 
-    my $objecta = MyApp->new_or_modify(identity => 'Mine');
-    my $objectb = MyApp->new_or_modify(identity => 'Mine');
+    my $objecta = MyApp->new_or_matching(identity => 'Mine');
+    my $objectb = MyApp->new_or_matching(identity => 'Mine');
 
     $objecta->number(40);
 
@@ -114,13 +114,15 @@ instance tracking is performed using B<weak references>.  If you let an object
 fall out of scope, it is gone, so a new object with the same unique attribute
 will be new.
 
-=method new_or_modify(%params)
+=method new_or_matching(%params)
 
-This is a class method which either creates a new object, or returns one that
-matches whatever unique value you set.  If it finds one that matches, it then
-modifies the attributes.  Even read-only ones.  So watch-out.  See
-L<MooseX::Unique::Object|MooseX::Unique::Object> for other items that will be
-injected into your namespace.
+Provided by L<MooseX::Unique::Object|MooseX::Unique::Object>.
+
+This is a wrapper around your new method that looks up the attribute for you.  
+Please note that this module does not process your BUILDARGS before looking for 
+an instance.  So, values must be passed as a hash or hash reference. Any
+attribute that is not flagged as unique will be ignored in the case of an
+existing instance.
 
 =func unique($attr)
 
@@ -130,6 +132,15 @@ your class, all unique attribute labels will be ignored.
 
 =head1 SEE ALSO
 MooseX::InstanceTracking
+
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Jesse (doy) Luehrs for stearing me clear of bad code design.
+
+Thanks to Shawn (sartak) Moore for L<MooseX::InstanceTracking>.
+
+And thanks to the rest of the Moose team for L<Moose>.
 
 =for stopwords
 BUILDARGS params  readonly MetaRole metaclass
