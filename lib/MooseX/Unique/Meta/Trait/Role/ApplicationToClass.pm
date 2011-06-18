@@ -28,3 +28,6 @@ See L<MooseX::Unique|MooseX::Unique>;
 Helps when MooseX::Unique is used in role context.
 
 
+
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass

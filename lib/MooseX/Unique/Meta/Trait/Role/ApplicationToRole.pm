@@ -14,6 +14,7 @@ around apply => sub {
 
 1;
 __END__
+
 =head1 SYNOPSIS
 
 See L<MooseX::Unique|MooseX::Unique>;
@@ -21,3 +22,6 @@ See L<MooseX::Unique|MooseX::Unique>;
 =head1 DESCRIPTION
 
 Helps when MooseX::Unique is used in role context.
+
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass

@@ -48,4 +48,6 @@ Add a match attribute
 
 An arrayref of match attributes.
 
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass
 

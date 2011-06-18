@@ -88,3 +88,6 @@ An arrayref of match attributes
 Apply the role to a class (or role).
 
 =method composition_class_roles
+
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass

@@ -18,3 +18,6 @@ See L<MooseX::Unique|MooseX::Unique>;
 =head1 DESCRIPTION
 
 This is the attribute trait which adds a Bool value 'unique'.
+
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass

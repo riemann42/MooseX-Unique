@@ -84,3 +84,5 @@ Will fire off triggers (this may change!).
 Given a set of params, finds a matching instance if available.
 
 
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass

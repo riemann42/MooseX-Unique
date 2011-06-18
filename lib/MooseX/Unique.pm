@@ -1,11 +1,13 @@
 package MooseX::Unique;
 
 #ABSTRACT: Make your Moose instances unique
+use Moose 1.9900; no Moose;  # Lazy hack for auto prereqs.
 use Moose::Exporter;
-use MooseX::InstanceTracking::Role::Class;
+use MooseX::InstanceTracking 0.06;
 use MooseX::Unique::Meta::Trait::Class;
 use MooseX::Unique::Meta::Trait::Attribute;
 use MooseX::Unique::Meta::Trait::Role::ApplicationToClass;
+
 
 Moose::Exporter->setup_import_methods(
     class_metaroles => {
@@ -72,7 +74,7 @@ __END__
     say "Num: ", $objectb->number;
     
 
-=head1 Description
+=head1 DESCRIPTION
 
 This module uses L<MooseX::InstanceTracking> to keep track of your
 instances.  If an attribute has a unique flag set, and a new attribute is
@@ -126,3 +128,8 @@ Sugar method that can be used instead of attribute labeling.  Set $attr to
 the name of an attribute and it will be unique.  If you use this keyword in
 your class, all unique attribute labels will be ignored.  
 
+=head1 SEE ALSO
+MooseX::InstanceTracking
+
+=for stopwords
+BUILDARGS params  readonly MetaRole metaclass
