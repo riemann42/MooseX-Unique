@@ -4,16 +4,22 @@ use Moose::Role;
 use Moose::Util::MetaRole;
 
 around apply => sub {
-    my ( $orig, $self, @args ) = @_;
-    $self->$orig( @args );
-    if ($args[0]->can('apply_match_attributes_to_class')) {
-        $args[0]->apply_match_attributes_to_class($args[1]);
-    }
+    my ( $orig, $self,$role,$class ) = @_;
+
+
     Moose::Util::MetaRole::apply_base_class_roles(
-        for   => $args[1],
+        for   => $class,
         roles => ['MooseX::Unique::Meta::Trait::Object'],
     );
-    return $args[1];
+
+
+    if ($role->can('apply_match_attributes_to_class')) {
+        $class = $role->apply_match_attributes_to_class($class);
+    }
+
+    $self->$orig( $role,$class );
+
+    return $class;
 };
 
 1;

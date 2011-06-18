@@ -44,13 +44,13 @@ sub apply_match_attributes_to_class {
         },
     );
 
-
     if ( $class->_has_match_attributes ) {
         $class->add_match_attribute( @{ $role->match_attribute } );
     }
     else {
         $class->match_attribute( $role->match_attribute );
     }
+    return $class;
 }
 
 sub composition_class_roles {
