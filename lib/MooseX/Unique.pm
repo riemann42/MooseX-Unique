@@ -131,6 +131,21 @@ Sugar method that can be used instead of attribute labeling.  Set $attr to
 the name of an attribute and it will be unique.  If you use this keyword in
 your class, all unique attribute labels will be ignored.  
 
+=head1 BUGS
+
+Cur$ently, when used in a role, attribute metaroles don't get applied
+correctly.  To correct this, add a trait as follows: 
+
+    has identity => (
+        is  => 'ro',
+        isa => 'Str',
+        required => 1,
+        unique => 1,
+        traits => ['UniqueIdentity'],
+    );
+
+
+
 =head1 SEE ALSO
 MooseX::InstanceTracking
 

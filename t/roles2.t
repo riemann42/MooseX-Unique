@@ -8,7 +8,7 @@
         isa => 'Str',
         required => 1,
         unique => 1,
-        traits => ['MooseX::Unique::Meta::Trait::Attribute'],
+        traits => ['UniqueIdentity'],
     );
 
     has number =>  ( 
@@ -24,7 +24,6 @@
 {
     package MyApp;
     use Moose;
-    use MooseX::Unique;
     with 'MyApp::Role';
     __PACKAGE__->meta->make_immutable();
 }
