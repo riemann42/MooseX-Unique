@@ -26,4 +26,4 @@ This is the attribute trait which adds a Bool value 'unique'.
 Has an alias UniqueIdentity for your convenience.
 
 =for stopwords
-BUILDARGS params  readonly MetaRole metaclass
+BUILDARGS params  readonly MetaRole metaclass UniqueIdentity

@@ -133,7 +133,7 @@ your class, all unique attribute labels will be ignored.
 
 =head1 BUGS
 
-Cur$ently, when used in a role, attribute metaroles don't get applied
+Currently, when used in a role, attribute metaroles don't get applied
 correctly.  To correct this, add a trait as follows: 
 
     has identity => (
@@ -144,19 +144,20 @@ correctly.  To correct this, add a trait as follows:
         traits => ['UniqueIdentity'],
     );
 
-
+This does not affect the use of the unique command.
 
 =head1 SEE ALSO
 MooseX::InstanceTracking
 
 
-=head1 ACKNOWLEDGEMENTS
+=head1 ACKNOWLEDGMENTS
 
-Thanks to Jesse (doy) Luehrs for stearing me clear of bad code design.
+Thanks to Jesse (doy) Luehrs for steering me clear of bad code design.
 
 Thanks to Shawn (sartak) Moore for L<MooseX::InstanceTracking>.
 
 And thanks to the rest of the Moose team for L<Moose>.
 
 =for stopwords
-BUILDARGS params  readonly MetaRole metaclass
+BUILDARGS params  readonly MetaRole metaroles metaclass doy Luehrs sartak UniqueIdentity
+
