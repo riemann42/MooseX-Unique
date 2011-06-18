@@ -12,6 +12,7 @@ has match_attribute => (
         my @ret  = ();
         for my $attribute ( map { $self->get_attribute($_) }
             $self->get_attribute_list ) {
+            next unless $attribute->can('unique');
             if ( $attribute->unique ) {
                 push @ret, $attribute;
             }
