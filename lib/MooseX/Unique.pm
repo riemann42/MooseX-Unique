@@ -106,8 +106,9 @@ instance tracking.  This module lets Moose do the work for you.
 =back
 
 That having all been said, B<think twice> before using this module.  It 
-can cause spooky action at a distance.  The synopsis should indicate how 
-this can be troubling, confusing, and a great source of bizarre bugs.
+can cause spooky action at a distance.  Be sure to use it only on immutable
+objects. The synopsis should indicate how this can be troubling, confusing, 
+and a great source of bizarre bugs if you are not paying attention.
 
 In addition to the spooky action at a distance, please keep in mind that the
 instance tracking is performed using B<weak references>.  If you let an object

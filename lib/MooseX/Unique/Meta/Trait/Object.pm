@@ -21,11 +21,11 @@ sub find_matching {
                 MATCH_ATTR:
                 for my $match_attr ( $class->meta->match_attributes ) {
                     if ( ref $match_attr ) {
-                        next MATCH_ATTR unless $match_attr->has_value($instance);
-                        $match_attr = $match_attr->get_read_method;
+                        $match_attr = $match_attr->name;
                     }
-                    if ( $instance->$match_attr )  {
-                        if ( $instance->$match_attr eq $params->{$match_attr} )  {
+                    my $attr = $class->meta->find_attribute_by_name($match_attr);
+                    if (  $attr->has_value($instance) )  {
+                        if ( $attr->get_value($instance) eq $params->{$match_attr} )  {
                             $match++;
                         }
                         $potential++;    
