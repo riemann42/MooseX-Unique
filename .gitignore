@@ -20,5 +20,5 @@ MYMETA.yml
 MYMETA.json
 t/LWPCache/
 .build
-{{ ($x=$name) =~ s/::/-/g }}
-MooseX-Attribute-Unique-0.001
+MooseX-Attribute-Unique-*
+MooseX-Unique-*
