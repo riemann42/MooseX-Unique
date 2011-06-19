@@ -29,7 +29,9 @@ has match_attribute => (
 has match_requires => (
     isa => 'Int',
     is => 'rw',
-    default => 1,
+    lazy => 1,
+    default => sub{1},
+    predicate => '_has_match_requires',
 );
 
 1;

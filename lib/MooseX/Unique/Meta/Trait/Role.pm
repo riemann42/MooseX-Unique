@@ -2,29 +2,7 @@ package MooseX::Unique::Meta::Trait::Role;
 #ABSTRACT:  MooseX::Unique Role MetaRole
 use Moose::Role;
 
-has match_attribute => (
-    traits  => ['Array'],
-    isa     => 'ArrayRef[Any]',
-    is      => 'rw',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        my @ret  = ();
-        for my $attribute ( map { $self->get_attribute($_) }
-            $self->get_attribute_list ) {
-            next unless $attribute->can('unique');
-            if ( $attribute->unique ) {
-                push @ret, $attribute;
-            }
-        }
-        return \@ret;
-    },
-    handles => {
-        _has_match_attributes => 'count',
-        match_attributes      => 'elements',
-        add_match_attribute   => 'push',
-    },
-);
+with 'MooseX::Unique::Meta::Trait::Class';
 
 sub apply_match_attributes_to_class {
     my ($role,$class) = @_;
@@ -51,13 +29,22 @@ sub apply_match_attributes_to_class {
     else {
         $class->match_attribute( $role->match_attribute );
     }
+
+    if ($role->_has_match_requires) {
+        if ($class->_has_match_requires) {
+            $class->match_requires($class->match_requires + $role->match_requires)
+        }
+        else {
+            $class->match_requires($role->match_requires)
+        }
+    }
+
     return $class;
 }
 
 sub composition_class_roles {
     return ('MooseX::Unique::Meta::Trait::Role::Composite');
 }
-
 
 1;
 __END__

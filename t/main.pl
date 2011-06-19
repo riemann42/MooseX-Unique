@@ -19,4 +19,6 @@ is($objectc->number, 100, "Object C is good");
 
 my $objectd = MyApp->new_or_matching(identity => 'Yours');
 
-is($objectc->number, 100, "Object D is good");
+is($objectd->number, 100, "Object D is good");
+
+

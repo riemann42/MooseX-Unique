@@ -6,6 +6,7 @@ use Moose::Util::MetaRole;
 around apply => sub {
     my ( $orig, $self,$role,$class ) = @_;
 
+    $self->$orig( $role,$class );
 
     Moose::Util::MetaRole::apply_base_class_roles(
         for   => $class,
@@ -17,7 +18,6 @@ around apply => sub {
         $class = $role->apply_match_attributes_to_class($class);
     }
 
-    $self->$orig( $role,$class );
 
     return $class;
 };

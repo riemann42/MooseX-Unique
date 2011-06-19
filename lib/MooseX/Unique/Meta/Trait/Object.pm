@@ -36,7 +36,7 @@ sub find_matching {
                 if (($required) && ($match >= $required)) {
                     return $instance; 
                 }
-                elsif ($match == $potential) {
+                elsif ((! $required) && ($match == $potential)) {
                     return $instance; 
                 }
             }
