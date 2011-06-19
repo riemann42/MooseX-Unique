@@ -1,5 +1,6 @@
 package MooseX::Unique::Meta::Trait::Object;
 #ABSTRACT:  MooseX::Unique base class role
+use 5.10.0;
 use Moose::Role;
 use strict; use warnings;
 
@@ -25,7 +26,7 @@ sub find_matching {
                     }
                     my $attr = $class->meta->find_attribute_by_name($match_attr);
                     if (  $attr->has_value($instance) )  {
-                        if ( $attr->get_value($instance) eq $params->{$match_attr} )  {
+                        if ( $attr->get_value($instance) ~~ $params->{$match_attr} )  {
                             $match++;
                         }
                         $potential++;    

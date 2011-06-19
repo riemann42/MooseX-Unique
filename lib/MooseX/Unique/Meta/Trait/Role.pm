@@ -59,8 +59,6 @@ sub composition_class_roles {
 }
 
 
-
-
 1;
 __END__
 
