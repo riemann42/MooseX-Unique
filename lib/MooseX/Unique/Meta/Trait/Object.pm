@@ -32,10 +32,13 @@ sub find_matching {
                         $potential++;    
                     }
                 }
-                #if (($match) && ($match == $potential)) { return $instance; }
-                if ($match) { 
+                my $required = $class->meta->match_requires;
+                if (($required) && ($match >= $required)) {
                     return $instance; 
-                }  
+                }
+                elsif ($match == $potential) {
+                    return $instance; 
+                }
             }
         }
     }

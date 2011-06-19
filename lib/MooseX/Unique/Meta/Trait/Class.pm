@@ -26,6 +26,12 @@ has match_attribute => (
     },
 );
 
+has match_requires => (
+    isa => 'Int',
+    is => 'rw',
+    default => 1,
+);
+
 1;
 __END__
 
@@ -48,6 +54,12 @@ Add a match attribute
 =attr match_attribute
 
 An arrayref of match attributes.
+
+=method match_requires
+
+The minimum number of attributes that must match to consider two objects to be
+identical.  The default is 1.  Setting this to 0 will force all attributes
+with unique flag to match.
 
 =for stopwords
 BUILDARGS params  readonly MetaRole metaclass
