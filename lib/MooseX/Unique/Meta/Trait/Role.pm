@@ -6,6 +6,14 @@ with 'MooseX::Unique::Meta::Trait::Class';
 
 sub apply_match_attributes_to_class {
     my ($role,$class) = @_;
+    my $match_requires = undef;
+
+    if (    ($class->can('_has_match_requires')) 
+         && ($role->_has_match_requires) 
+         && ($class->_has_match_requires)) { 
+            $match_requires = $class->match_requires;
+    }
+
     $class = Moose::Util::MetaRole::apply_metaroles(
         for             => $class,
         class_metaroles => {
@@ -23,20 +31,15 @@ sub apply_match_attributes_to_class {
         },
     );
 
-    if ( $class->_has_match_attributes ) {
-        $class->add_match_attribute( @{ $role->match_attribute } );
-    }
-    else {
-        $class->match_attribute( $role->match_attribute );
+    $class->add_match_attribute( @{ $role->match_attribute } );
+
+    if (defined $match_requires) {
+        $class->_set_match_requires($match_requires);
     }
 
     if ($role->_has_match_requires) {
-        if ($class->_has_match_requires) {
-            $class->match_requires($class->match_requires + $role->match_requires)
-        }
-        else {
-            $class->match_requires($role->match_requires)
-        }
+        $class->add_match_requires($role->match_requires);
+
     }
 
     return $class;

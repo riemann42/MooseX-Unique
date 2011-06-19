@@ -1,6 +1,6 @@
 use strict; use warnings;
 {
-    package MyApp::Role;
+    package MyApp::RoleB;
     use Moose::Role;
     use MooseX::Unique;
 
@@ -15,28 +15,32 @@ use strict; use warnings;
         isa => 'Int'
     );
 
-    required_matches(1);
+    required_matches(0);
     unique ('secret_identity');
 
 }
 {
-    package MyApp;
-    use Moose;
+    package MyApp::Role;
+    use Moose::Role;
     use MooseX::Unique;
 
     has identity => (
         is  => 'ro',
         isa => 'Str',
         required => 1,
-        unique => 1,
     );
 
-
-
     required_matches(1);
+    unique ('identity');
+}
+{
+    package MyApp;
+    use Moose;
+    use MooseX::Unique;
 
-    with 'MyApp::Role';
+    with qw(MyApp::RoleB MyApp::Role);
 }
 
-
 require 't/multi.pl';
+
+

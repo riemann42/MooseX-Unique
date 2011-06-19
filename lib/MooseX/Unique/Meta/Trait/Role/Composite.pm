@@ -1,4 +1,5 @@
 package MooseX::Unique::Meta::Trait::Role::Composite;
+
 #ABSTRACT:  MooseX::Unique helper module
 use Moose::Role;
 use Moose::Util::MetaRole;
@@ -18,17 +19,20 @@ around apply_params => sub {
                 ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
         },
     );
-    for my $inc_role (@{$role->get_roles}) {
+    for my $inc_role ( @{ $role->get_roles } ) {
         if ( $inc_role->can('match_attribute') ) {
             $role->add_match_attribute( @{ $inc_role->match_attribute } );
+        }
+        if (   ( $inc_role->can('_has_match_requires') )
+            && ( $inc_role->_has_match_requires ) ) {
+            $role->add_match_requires($inc_role->match_requires);
         }
     }
     return $role;
 };
 
-
 no Moose::Role;
-1; 
+1;
 __END__
 
 =head1 SYNOPSIS

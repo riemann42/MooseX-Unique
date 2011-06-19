@@ -26,7 +26,7 @@ Moose::Exporter->setup_import_methods(
             ['MooseX::Unique::Meta::Trait::Role::ApplicationToRole'],
     },
     base_class_roles => ['MooseX::Unique::Meta::Trait::Object'],
-    with_meta        => ['unique'],
+    with_meta        => ['unique', 'required_matches'],
 
 );
 
@@ -35,8 +35,14 @@ sub unique {
     if ( ref $att[0] ) {
         @att = @{ $att[0] };
     }
-    $meta->match_attribute( \@att );
+    $meta->add_match_attribute( @att );
 }
+
+sub required_matches {
+    my ( $meta, $val) = @_;
+    $meta->add_match_requires( $val );
+}
+
 
 1;
 __END__
@@ -129,7 +135,15 @@ existing instance.
 
 Sugar method that can be used instead of attribute labeling.  Set $attr to 
 the name of an attribute and it will be unique.  If you use this keyword in
-your class, all unique attribute labels will be ignored.  
+your class, all unique attribute labels will be ignored.
+
+=func required_matches($int)
+
+Sugar method that sets the minimum number of matches required to make a match.
+The default is 1.  Setting this to 0 means that a match requires that all
+attributes set to unique are matched. If you run this more than once, for
+example in a role, it will add to the existing unless the existing is 0.  If
+you set it to 0, it will reset it to 0 regardless of current value. 
 
 =head1 BUGS
 
@@ -144,7 +158,8 @@ correctly.  To correct this, add a trait as follows:
         traits => ['UniqueIdentity'],
     );
 
-This does not affect the use of the unique command.
+This does not affect the use of the unique command, which is recommended when
+using this in a role.
 
 =head1 SEE ALSO
 MooseX::InstanceTracking

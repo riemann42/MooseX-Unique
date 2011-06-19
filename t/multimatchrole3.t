@@ -1,6 +1,6 @@
 use strict; use warnings;
 {
-    package MyApp::Role;
+    package MyApp::RoleB;
     use Moose::Role;
     use MooseX::Unique;
 
@@ -20,23 +20,30 @@ use strict; use warnings;
 
 }
 {
-    package MyApp;
-    use Moose;
+    package MyApp::Role;
+    use Moose::Role;
     use MooseX::Unique;
+
+    with qw(MyApp::RoleB);
 
     has identity => (
         is  => 'ro',
         isa => 'Str',
         required => 1,
-        unique => 1,
     );
 
-
-
     required_matches(1);
+    unique ('identity');
 
-    with 'MyApp::Role';
+}
+{
+    package MyApp;
+    use Moose;
+    use MooseX::Unique;
+
+    with qw(MyApp::Role);
 }
 
-
 require 't/multi.pl';
+
+
