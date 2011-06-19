@@ -1,5 +1,5 @@
 {
-    package MyApp::Role;
+    package MyApp::RoleA;
     use Moose::Role;
     use MooseX::Unique;
 
@@ -21,10 +21,16 @@
 }
 
 {
+    package MyApp::RoleB;
+    use Moose::Role;
+    no Moose::Role;
+    1;
+}
+
+{
     package MyApp;
     use Moose;
-    use MooseX::Unique;
-    with 'MyApp::Role';
+    with 'MyApp::RoleA', 'MyApp::RoleB';
     __PACKAGE__->meta->make_immutable();
 }
 

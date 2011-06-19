@@ -1,30 +1,40 @@
 package MooseX::Unique::Meta::Trait::Class;
 #ABSTRACT:  MooseX::Unique Class MetaRole
 use Moose::Role;
+use List::MoreUtils qw(uniq);
 
-has match_attribute => (
+has _match_attribute => (
     traits  => ['Array'],
-    isa     => 'ArrayRef[Any]',
+    isa     => 'ArrayRef',
     is      => 'rw',
     lazy    => 1,
-    default => sub {
-        my $self = shift;
-        my @ret  = ();
-        for my $attribute ( map { $self->get_attribute($_) }
-            $self->get_attribute_list ) {
-            next unless $attribute->can('unique');
-            if ( $attribute->unique ) {
-                push @ret, $attribute;
-            }
-        }
-        return \@ret;
-    },
+    default => sub {[]},
     handles => {
-        _has_match_attributes => 'count',
-        match_attributes      => 'elements',
         add_match_attribute   => 'push',
+        _match_attributes     => 'elements',
     },
 );
+
+sub _has_match_attributes {
+    my $self = shift;
+    return ($self->match_attributes) ? 1 : 0;
+}
+
+sub _is_attr_unique {
+    my ($self, $attr) = @_;
+    my $attr_obj = $self->get_attribute($attr);
+    return (($attr_obj->can('unique')) && ($attr_obj->unique));
+}
+
+sub match_attributes {
+    my $self = shift;
+
+    return uniq $self->_match_attributes, 
+                map { 
+                    $self->_is_attr_unique($_) ? ($_) : () 
+                } $self->get_attribute_list;
+}
+
 
 has match_requires => (
     isa => 'Int',
@@ -71,10 +81,6 @@ Returns a list of match attributes
 =method add_match_attribute
 
 Add a match attribute
-
-=attr match_attribute
-
-An arrayref of match attributes.
 
 =method match_requires
 

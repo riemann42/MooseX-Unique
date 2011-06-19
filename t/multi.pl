@@ -24,3 +24,4 @@ my $objecte = MyApp->new_or_matching(identity => 'Mine', secret_identity => 'Mic
 
 is($objecte->number, 100, "Object E is good");
 
+1;

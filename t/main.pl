@@ -21,4 +21,4 @@ my $objectd = MyApp->new_or_matching(identity => 'Yours');
 
 is($objectd->number, 100, "Object D is good");
 
-
+1;

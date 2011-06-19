@@ -1,9 +1,10 @@
+use strict; use warnings;
 {
     package MyApp::Role;
     use Moose::Role;
     use MooseX::Unique;
 
-    has identity => (
+    has secret_identity => (
         is  => 'ro',
         isa => 'Str',
         required => 1,
@@ -15,17 +16,27 @@
         isa => 'Int'
     );
 
-    no Moose::Role;
-    1;
+    required_matches(1);
 
 }
-
 {
     package MyApp;
     use Moose;
     use MooseX::Unique;
+
+    has identity => (
+        is  => 'ro',
+        isa => 'Str',
+        required => 1,
+        unique => 1,
+    );
+
+
+
+    required_matches(1);
+
     with 'MyApp::Role';
-    __PACKAGE__->meta->make_immutable();
 }
 
-require 't/main.pl';
+
+require 't/multi.pl';

@@ -19,6 +19,7 @@ Moose::Exporter->setup_import_methods(
     },
     role_metaroles => {
         role      => ['MooseX::Unique::Meta::Trait::Role'],
+        applied_attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
         attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
         application_to_class =>
             ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
@@ -134,8 +135,9 @@ existing instance.
 =func unique($attr)
 
 Sugar method that can be used instead of attribute labeling.  Set $attr to 
-the name of an attribute and it will be unique.  If you use this keyword in
-your class, all unique attribute labels will be ignored.
+the name of an attribute and it will be unique.
+
+This can be used in a role even if the attribute is not defined in the role.
 
 =func required_matches($int)
 
@@ -147,19 +149,8 @@ you set it to 0, it will reset it to 0 regardless of current value.
 
 =head1 BUGS
 
-Currently, when used in a role, attribute metaroles don't get applied
-correctly.  To correct this, add a trait as follows: 
-
-    has identity => (
-        is  => 'ro',
-        isa => 'Str',
-        required => 1,
-        unique => 1,
-        traits => ['UniqueIdentity'],
-    );
-
-This does not affect the use of the unique command, which is recommended when
-using this in a role.
+I'm sure there are a few in the shadows.  Please submit test cases to the bug
+tracker web link above.  
 
 =head1 SEE ALSO
 MooseX::InstanceTracking

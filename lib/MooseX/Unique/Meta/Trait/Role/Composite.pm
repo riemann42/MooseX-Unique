@@ -14,14 +14,15 @@ around apply_params => sub {
         for            => $role,
         role_metaroles => {
             role      => ['MooseX::Unique::Meta::Trait::Role'],
+            applied_attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             application_to_class =>
                 ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
         },
     );
     for my $inc_role ( @{ $role->get_roles } ) {
-        if ( $inc_role->can('match_attribute') ) {
-            $role->add_match_attribute( @{ $inc_role->match_attribute } );
+        if ( $inc_role->can('match_attributes') ) {
+            $role->add_match_attribute( $inc_role->match_attributes  );
         }
         if (   ( $inc_role->can('_has_match_requires') )
             && ( $inc_role->_has_match_requires ) ) {

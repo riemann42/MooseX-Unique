@@ -25,13 +25,14 @@ sub apply_match_attributes_to_class {
         },
         role_metaroles => {
             role      => ['MooseX::Unique::Meta::Trait::Role'],
+            applied_attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             application_to_class =>
                 ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
         },
     );
 
-    $class->add_match_attribute( @{ $role->match_attribute } );
+    $class->add_match_attribute( $role->match_attributes );
 
     if (defined $match_requires) {
         $class->_set_match_requires($match_requires);
