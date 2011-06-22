@@ -18,6 +18,8 @@ around apply_params => sub {
             attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             application_to_class =>
                 ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
+            application_to_role =>
+                ['MooseX::Unique::Meta::Trait::Role::ApplicationToRole'],
         },
     );
     for my $inc_role ( @{ $role->get_roles } ) {

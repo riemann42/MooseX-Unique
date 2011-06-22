@@ -29,6 +29,8 @@ sub apply_match_attributes_to_class {
             attribute => ['MooseX::Unique::Meta::Trait::Attribute'],
             application_to_class =>
                 ['MooseX::Unique::Meta::Trait::Role::ApplicationToClass'],
+            application_to_role =>
+                ['MooseX::Unique::Meta::Trait::Role::ApplicationToRole'],
         },
     );
 
