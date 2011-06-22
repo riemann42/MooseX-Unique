@@ -44,3 +44,5 @@
 }
 
 require 't/main.pl';
+
+done_testing();

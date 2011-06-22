@@ -45,3 +45,5 @@ use strict; use warnings;
 require 't/multi.pl';
 
 
+
+done_testing();
