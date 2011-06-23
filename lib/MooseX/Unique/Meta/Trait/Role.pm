@@ -48,9 +48,11 @@ sub apply_match_attributes_to_class {
     return $class;
 }
 
-sub composition_class_roles {
-    return ('MooseX::Unique::Meta::Trait::Role::Composite');
-}
+around 'composition_class_roles' => sub {
+    my ($orig,$self) = @_;
+    return ($self->$orig, 'MooseX::Unique::Meta::Trait::Role::Composite');
+};
+
 
 1;
 __END__
